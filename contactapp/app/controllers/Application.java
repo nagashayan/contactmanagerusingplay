@@ -14,5 +14,13 @@ public class Application extends Controller {
         String name = "naga";
         render(name);
     }
+    
+    public static void register() {
+        render();
+    }
+    
+    public static void registerUser() {
+        render("@afterregistration");
+    }
 
 }
