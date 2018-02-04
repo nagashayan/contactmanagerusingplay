@@ -11,11 +11,7 @@
         #{/if}
         #{else}
             <h1>Oops, an error occured</h1>
-            #{if exception instanceof play.exceptions.PlayException}
-                <p>
-                    This exception has been logged with id <strong>${exception.id}</strong>.
-                </p>
-            #{/if}
+           
         #{/else}
     </body>
 </html>
