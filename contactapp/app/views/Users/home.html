@@ -2,8 +2,17 @@
 #{set title:'Home' /}
 
 Hello ${name}! welcome to play
- <a id="logout" href="@{Application.logout}">Logout</a>
- <p>List All Contacts</p>
- #{list items:contacts, as:'product'}
-    <li>${product.name}. Bday ${product.bday_timestamp} Hours ${product.email_before_bday_hours} </li>
+<a id="logout" href="@{Application.logout}">Logout</a>
+<p>List All Contacts</p>
+#{list items:contacts, as:'contact'}
+<li>${contact.name}. Bday ${contact.bday_timestamp} Hours ${contact.email_before_bday_hours} </li>
 #{/list}
+<form method= "post" action="@{Users.addContact}">
+    <label>Name</label>
+    <input type="text" name="name" />
+    <label>Date</label>
+    <input type="date" name="bday_date" />
+    <label>How many hours before birth day, you want to be reminded?</label>
+    <input type="number" name="reminder_before_bday" />
+    <input type="submit" name="Submit" id="addcontact"/>
+</form>

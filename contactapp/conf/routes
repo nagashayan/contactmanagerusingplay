@@ -5,10 +5,13 @@
 # Home page
 GET     /                                       Application.index
 
+# Add contact 
+POST    /users/addContact                           Users.addContact
+
 # Login pages
 GET     /login                               Application.login
 POST    /validate                           Application.validate
-GET     /home                                Application.home
+GET     /users/home                                Users.home
 GET     /logout                              Application.logout
 
 # Registration pages

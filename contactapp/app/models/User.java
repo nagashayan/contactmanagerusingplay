@@ -6,6 +6,7 @@
 package models;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -61,7 +62,7 @@ public class User extends Model {
 
    
 
-    public void addContact(String name, String bday, int email_before_bday_hours) throws ParseException {
+    public void addContact(String name, Date bday, int email_before_bday_hours) throws ParseException {
         Contact contact = new Contact(name,bday,email_before_bday_hours);
         this.getContacts().add(contact);
         

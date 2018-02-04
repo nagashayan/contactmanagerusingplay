@@ -5,9 +5,12 @@
  */
 package controllers;
 
+import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 import models.Contact;
 import models.User;
+import play.data.validation.Required;
 import play.mvc.Controller;
 import play.mvc.Scope.Session;
 
@@ -15,43 +18,53 @@ import play.mvc.Scope.Session;
  *
  * @author nagashayanaramamurthy
  */
-public class Users extends Controller{
-    
+public class Users extends Controller {
+
     public static void home() {
         String name = flash.get("name");
-        
-        try{
-            if(session.contains("loggedinuser")){
-                long id =  Long.parseLong(session.get("loggedinuser"));
-            
+
+        try {
+            if (session.contains("loggedinuser")) {
+                long id = Long.parseLong(session.get("loggedinuser"));
+
                 User user = User.findById(id);
-                if(user != null){
+                if (user != null) {
+                    System.out.println(user.id);
                     name = user.email;
-                    // add some dummy contacts
-                    user.addContact("naga","02/12/2018",10);
-                    user.addContact("naga1","02/12/2018",20);
-                    user.save();
                     List<Contact> contacts = user.getContacts();
-                    for(Contact contact:contacts){
+                    for (Contact contact : contacts) {
                         System.out.println(contact.name);
                     }
-                    render(name,contacts);
+                    render(name, contacts);
                 }
-            
+
             }
+
             flash.error("Please check your email or password and try again");
+            session.clear();
             Application.login();
-            
-        }
-        catch(Exception e){
-            System.out.println("caught excpetion"+e);
+        } catch (Exception e) {
+            System.out.println("caught excpetion" + e);
             flash.error("Please check your email or password and try again");
+            session.clear();
             Application.login();
-            
+
         }
-        
-        
-        
+
+    }
+
+    public static void addContact(@Required String name, @Required Date bday_date, @Required String reminder_before_bday) throws ParseException {
+        //Application.checkUserStatus();
+        long id = Long.parseLong(session.get("loggedinuser"));
+
+        User user = User.findById(id);
+        if (user != null) {
+
+            // add some dummy contacts
+            user.addContact(name, bday_date, Integer.parseInt(reminder_before_bday));
+            user.save();
+        }
+        home();
     }
 
 }

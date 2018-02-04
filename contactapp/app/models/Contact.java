@@ -31,13 +31,13 @@ public class Contact extends Model{
     @Required
     public int email_before_bday_hours;
     
-    public Contact(String name, String bday_timestamp, int email_before_bday_hours) throws ParseException{
-        System.out.print(name+bday_timestamp);
+    public Contact(String name, Date bday_timestamp, int email_before_bday_hours) throws ParseException{
+        //System.out.print(name+bday_timestamp);
         System.out.print(email_before_bday_hours);
         this.name = name;
-        DateFormat dateFormat  = new SimpleDateFormat("MM/dd/yyyy");
-        Date newdate = dateFormat.parse(bday_timestamp);
-        this.bday_timestamp = newdate;
+       // DateFormat dateFormat  = new SimpleDateFormat("MM/dd/yyyy");
+        //Date newdate = dateFormat.parse(bday_timestamp);
+        this.bday_timestamp = bday_timestamp;
         this.email_before_bday_hours = email_before_bday_hours;
     }
 

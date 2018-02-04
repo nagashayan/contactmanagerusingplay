@@ -2,18 +2,18 @@
 #{set title:'Registration Page' /}
 
 #{if flash.error}
-	<p>
-		${flash.error}
-              
-               
-	</p>
+<p>
+    ${flash.error}
+
+
+</p>
 
 #{/if}
 <form method= "post" action="@{Application.registerUser}">
     <label>Email</label>
     <input type="email" name="email" />
-     <span class="error">#{error 'name' /}</span>
-     <label>Password</label>
+    <span class="error">#{error 'name' /}</span>
+    <label>Password</label>
     <input type="text" name="password" />
     <span class="error">#{error 'password' /}</span>
     <input type="submit" name="Submit" id="register" />
