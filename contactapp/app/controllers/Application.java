@@ -11,12 +11,13 @@ import play.data.validation.Required;
 public class Application extends Controller {
 
     public static void index() {
-        
+        checkUserStatus();
         render();
     }
     
     
     public static void login() {
+        checkUserStatus();
         render();
     }
     
@@ -40,6 +41,7 @@ public class Application extends Controller {
     }
     
     public static void register() {
+        checkUserStatus();
         render();
     }
     
@@ -64,6 +66,12 @@ public class Application extends Controller {
             render("@register");
         }
         
+    }
+    
+    private static void checkUserStatus(){
+        if(session.contains("loggedinuser")){
+            Users.home();
+        }
     }
 
 }
