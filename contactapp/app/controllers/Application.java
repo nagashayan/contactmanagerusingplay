@@ -15,10 +15,6 @@ public class Application extends Controller {
         render();
     }
     
-    public static void home() {
-        String name = flash.get("name");
-        render(name);
-    }
     
     public static void login() {
         render();
@@ -33,11 +29,13 @@ public class Application extends Controller {
         } else {
             System.out.print(user.password);
             flash("name",user.email);
-            home();
+            session.put("loggedinuser", user.id);
+            Users.home();
         }
     }
     
     public static void logout() {
+        session.clear();
         index();
     }
     
