@@ -6,6 +6,7 @@ import play.mvc.*;
 import java.util.*;
 
 import models.*;
+import play.data.validation.Required;
 
 public class Application extends Controller {
 
@@ -40,8 +41,27 @@ public class Application extends Controller {
         render();
     }
     
-    public static void registerUser() {
-        render("@afterregistration");
+    public static void registerUser(@Required String email, @Required String password) {
+        if (validation.hasErrors()) {
+            System.out.println("has errors"+password);
+            for(play.data.validation.Error error : validation.errors()) {
+             System.out.println(error.message());
+         }
+            params.flash();
+            flash.error("Oops! Error in the form");
+            render("@register");
+        }
+        try {
+            
+            User user = new User(email,password);
+            user.save();
+            render("@afterregistration");
+        }
+        catch (Exception e){
+            flash.error("Something went wrong, registration is not complete");
+            render("@register");
+        }
+        
     }
 
 }

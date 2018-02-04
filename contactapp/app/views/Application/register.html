@@ -1,8 +1,18 @@
 #{extends 'main.html' /}
 #{set title:'Registration Page' /}
 
+#{if flash.error}
+	<p>
+		${flash.error}
+              
+               
+	</p>
+
+#{/if}
 <form method= "post" action="@{Application.registerUser}">
     <input type="email" name="email" />
+     <span class="error">#{error 'name' /}</span>
     <input type="text" name="password" />
+    <span class="error">#{error 'password' /}</span>
     <input type="submit" name="Submit" />
 </form>
