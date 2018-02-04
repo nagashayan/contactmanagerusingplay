@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package models;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -56,6 +57,23 @@ public class User extends Model {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+   
+
+    public void addContact(String name, String bday, int email_before_bday_hours) throws ParseException {
+        Contact contact = new Contact(name,bday,email_before_bday_hours);
+        this.getContacts().add(contact);
+        
+        
+    }
+
+    public List<Contact> getContacts() {
+        return contacts;
+    }
+
+    public void setContacts(List<Contact> contacts) {
+        this.contacts = contacts;
     }
 
 }

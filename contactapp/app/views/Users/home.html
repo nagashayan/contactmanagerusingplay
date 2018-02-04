@@ -3,3 +3,7 @@
 
 Hello ${name}! welcome to play
  <a id="logout" href="@{Application.logout}">Logout</a>
+ <p>List All Contacts</p>
+ #{list items:contacts, as:'product'}
+    <li>${product.name}. Bday ${product.bday_timestamp} Hours ${product.email_before_bday_hours} </li>
+#{/list}

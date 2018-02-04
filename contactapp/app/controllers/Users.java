@@ -5,6 +5,8 @@
  */
 package controllers;
 
+import java.util.List;
+import models.Contact;
 import models.User;
 import play.mvc.Controller;
 import play.mvc.Scope.Session;
@@ -25,7 +27,15 @@ public class Users extends Controller{
                 User user = User.findById(id);
                 if(user != null){
                     name = user.email;
-                    render(name);
+                    // add some dummy contacts
+                    user.addContact("naga","02/12/2018",10);
+                    user.addContact("naga1","02/12/2018",20);
+                    user.save();
+                    List<Contact> contacts = user.getContacts();
+                    for(Contact contact:contacts){
+                        System.out.println(contact.name);
+                    }
+                    render(name,contacts);
                 }
             
             }
