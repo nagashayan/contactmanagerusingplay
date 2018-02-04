@@ -2,6 +2,7 @@
 #{set title:'Home' /}
 
 Hello ${name}! welcome to play
+<br>
 <a id="logout" href="@{Users.home}">View all Contacts</a><a class="pull-right" id="logout" href="@{Application.logout}">Logout</a>
 <h3>Update Contact ${flash.edit_contact_id}</h3>
 
@@ -9,7 +10,7 @@ Hello ${name}! welcome to play
 <form class="form" method= "post"  action="@{Contacts.updateContact}">
      <div class="form-group">
           <label for="name">Contact Name:</label>
-          <input type="text" name="name" class="form-control" value="${flash.edit_contact_name}" required/>
+          <input type="text" name="contact_name" class="form-control" value="${flash.edit_contact_name}" required/>
      </div>
    
      <div class="form-group">

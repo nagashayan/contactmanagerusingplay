@@ -2,11 +2,31 @@
 #{set title:'Home' /}
 
 Hello ${name}! welcome to play
-<a id="logout" href="@{Application.logout}">Logout</a>
-<p>List All Contacts</p><a id="logout" href="@{Contacts.contactform}">Add Contact</a>
+<br>
+<a id="logout" class="pull-right" href="@{Application.logout}">Logout</a>
+<a id="logout" href="@{Contacts.contactform}">Add Contact</a>
 
-#{list items:contacts, as:'contact'}
-<li>${contact.name}. Bday ${contact.bday_date} Hours ${contact.email_before_bday_hours} 
-    <a href="@{Contacts.editcontactform}/${contact.id}">Edit</a></li>
-    <a href="@{Contacts.deletecontact}/${contact.id}">Delete</a></li>
-#{/list}
+ <h2>All Your Contacts</h2>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Contact Name</th>
+        <th>Birth Date</th>
+        <th>Reminder(in Hours)</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+        #{list items:contacts, as:'contact'}
+        <tr>
+            <td>${contact.name} </td>
+            <td>${contact.bday_date} </td>
+            <td>${contact.email_before_bday_hours} </td>
+            <td><a href="@{Contacts.editcontactform}/${contact.id}">Edit</a></td>
+            <td><a href="@{Contacts.deletecontact}/${contact.id}">Delete</a></td>
+        </tr>
+        #{/list}
+    </tbody>
+  </table>
+
