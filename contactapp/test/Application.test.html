@@ -24,7 +24,22 @@
     type('password', 'naga')
     clickAndWait('login')
     
-    assertTextPresent('Hello naga@gmail.com! welcome to play')
+    
+    //add contact
+    clickAndWait('addcontact')
+    assertTextPresent('Contact Name:')
+    assertTextPresent('Birthday Date:')
+    assertTextPresent('How many hours before birth day, you want to be reminded?:')
+    
+    //enter contact values
+    type('name', 'test')
+    type('bday_date', '02/08/2018')
+    type('reminder_before_bday', '10')
+    
+    clickAndWait('addcontact')
+    assertTextPresent('All Your Contacts')
+    
+    
     clickAndWait('logout')
     assertTextPresent('Please Login or Register')
 

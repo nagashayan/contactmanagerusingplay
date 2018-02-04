@@ -60,7 +60,7 @@ public class Contacts extends Controller {
             if (edit_contact != null) {
                 flash.put("edit_contact_id", edit_contact.id);
                 flash.put("edit_contact_name", edit_contact.name);
-                flash.put("edit_contact_bday_date", edit_contact.getBday_date());
+                flash.put("edit_contact_bday_date", edit_contact.getFormatBday_date());
                 flash.put("edit_contact_email_before_bday_hours", edit_contact.email_before_bday_hours);
             }
             render("@editContactForm", name);

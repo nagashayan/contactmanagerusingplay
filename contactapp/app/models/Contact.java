@@ -64,7 +64,7 @@ public class Contact extends Model{
         System.out.println("scheduling job on");
         System.out.println("contact name"+contact.getBday_date());
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        java.util.Date parsedDate = dateFormat.parse(contact.getBday_date());
+        java.util.Date parsedDate = dateFormat.parse(contact.getFormatBday_date());
         Timestamp timestamp = new java.sql.Timestamp(parsedDate.getTime());
         Timestamp nextTask = new Timestamp(timestamp.getTime() - contact.email_before_bday_hours * (60 * 60 * 1000));
         return nextTask;
@@ -94,14 +94,24 @@ public class Contact extends Model{
         user.removeContact(contact);
     }
 
-    public String getBday_date() {
+    public Timestamp getBday_date() {
+        return this.bday_date;
+    }
+
+    public void setBday_date(String bday_date) throws ParseException {
+        DateFormat dateFormat  = new SimpleDateFormat("yyyy-MM-dd");
+        java.util.Date format_bday_date = dateFormat.parse(bday_date);
+        this.bday_date = new java.sql.Timestamp(format_bday_date.getTime());
+    }
+    
+     public String getFormatBday_date() {
         System.out.println(this.bday_date);
         DateFormat target_bday_date = new SimpleDateFormat("yyyy-MM-dd");
         String format_bday_date = target_bday_date.format(this.bday_date); 
         return format_bday_date;
     }
 
-    public void setBday_date(String bday_date) throws ParseException {
+    public void setFormatBday_date(String bday_date) throws ParseException {
         DateFormat dateFormat  = new SimpleDateFormat("yyyy-MM-dd");
         java.util.Date format_bday_date = dateFormat.parse(bday_date);
         this.bday_date = new java.sql.Timestamp(format_bday_date.getTime());
