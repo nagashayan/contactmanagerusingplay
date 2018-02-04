@@ -4,7 +4,11 @@
  * and open the template in the editor.
  */
 package models;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import play.data.validation.Email;
 import play.data.validation.Required;
 import play.db.jpa.Model;
@@ -22,6 +26,12 @@ public class User extends Model {
     
     @Required
     public String password;
+    
+    @OneToMany(
+        cascade = CascadeType.ALL, 
+        orphanRemoval = true
+    )
+    public List<Contact> contacts = new ArrayList<Contact>();
     
     public User(String email, String password) {
         this.email = email;
