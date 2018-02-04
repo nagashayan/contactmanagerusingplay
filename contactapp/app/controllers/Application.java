@@ -7,12 +7,19 @@ import java.util.*;
 
 import models.*;
 
-@With(Secure.class)
 public class Application extends Controller {
 
     public static void index() {
         String name = "naga";
         render(name);
+    }
+    
+    public static void login() {
+        render("@index");
+    }
+    
+    public static void logout() {
+        render();
     }
     
     public static void register() {
