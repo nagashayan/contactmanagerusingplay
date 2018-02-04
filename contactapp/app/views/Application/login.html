@@ -1,6 +1,11 @@
 #{extends 'main.html' /}
 #{set title:'Registration Page' /}
 
+#{if flash.error}
+
+<p>${flash.error}</p>
+
+#{/if}
 <form method= "post" action="@{Application.validate}">
     <label>Email</label>
     <input type="email" name="email" />

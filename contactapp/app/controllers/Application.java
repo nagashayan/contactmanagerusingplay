@@ -25,12 +25,16 @@ public class Application extends Controller {
     }
     
     public static void validate(String email, String password) {
-        if(email.equals("naga@gmail.com") && password.equals("naga")){
-            flash("name",email);
+        User user = User.getUser(email);
+        if (user == null || !user.password.equals(password)) {
+            
+            flash.error("Please check your email or password and try again");
+            login();
+        } else {
+            System.out.print(user.password);
+            flash("name",user.email);
             home();
         }
-        flash.error("Please check your email or password and try again");
-        index();
     }
     
     public static void logout() {

@@ -27,4 +27,9 @@ public class User extends Model {
         this.email = email;
         this.password = password;
     }
+    
+    public static User getUser(String email){
+        return find("email", email).first();
+    }
+
 }
