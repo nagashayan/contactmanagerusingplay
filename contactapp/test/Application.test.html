@@ -4,20 +4,36 @@
     // Open the home page, and check that no error occured
     open('/')
     assertNotTitle('Application error')
-    assertTextPresent('Please login')
+    assertTextPresent('Please Login or Register')
     
-    clickAndWait('link=Please login')
+    #register 
+    clickAndWait('register')
     assertTextPresent('Email')
     assertTextPresent('Password')
+    //success case
+    type('email', 'naga@gmail.com')
+    type('password', 'naga')
+    clickAndWait('register')
+    
+    clickAndWait('login')
+    assertTextPresent('Email')
+    assertTextPresent('Password')
+    
+    //success case
     type('email', 'naga@gmail.com')
     type('password', 'naga')
     clickAndWait('login')
     
-    assertTextPresent('Hello naga@gmail.com!')
-    clickAndWait('link=Logout')
-    assertTextPresent('Please login')
+    assertTextPresent('Hello naga@gmail.com! welcome to play')
+    clickAndWait('logout')
+    assertTextPresent('Please Login or Register')
 
-
+    //fail case
+    clickAndWait('login')
+    type('email', 'naga@gmail.com')
+    type('password', 'shayan')
+    clickAndWait('login')
+    assertTextPresent('Please check your email or password and try again')
 
     
 #{/selenium}
