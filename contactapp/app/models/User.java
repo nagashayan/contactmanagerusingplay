@@ -15,7 +15,7 @@ import play.db.jpa.Model;
  */
 @Entity
 public class User extends Model {
-
+    
     @Email
     @Required
     public String email;
@@ -30,6 +30,22 @@ public class User extends Model {
     
     public static User getUser(String email){
         return find("email", email).first();
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
 }

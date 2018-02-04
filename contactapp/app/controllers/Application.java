@@ -47,7 +47,6 @@ public class Application extends Controller {
     
     public static void registerUser(@Required String email, @Required String password) {
         if (validation.hasErrors()) {
-            System.out.println("has errors"+password);
             for(play.data.validation.Error error : validation.errors()) {
              System.out.println(error.message());
          }
@@ -62,6 +61,7 @@ public class Application extends Controller {
             render("@afterregistration");
         }
         catch (Exception e){
+            System.out.print(e);
             flash.error("Something went wrong, registration is not complete");
             render("@register");
         }
