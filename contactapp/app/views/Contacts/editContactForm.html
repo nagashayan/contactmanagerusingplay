@@ -3,17 +3,15 @@
 
 Hello ${name}! welcome to play
 <a id="logout" href="@{Application.logout}">Logout</a>
-<p>List All Contacts</p>
-#{list items:contacts, as:'contact'}
-<li>${contact.name}. Bday ${contact.bday_timestamp} Hours ${contact.email_before_bday_hours} 
-    <a href="@{Users.deleteContact}/${contact.id}">Delete</a></li>
-#{/list}
-<form method= "post" action="@{Users.addContact}">
+<a id="logout" href="@{Users.home}">View all Contacts</a>
+
+<form method= "post" action="@{Contacts.updateContact}">
     <label>Name</label>
-    <input type="text" name="name" />
+    <input type="text" name="contact_name" value="${flash.edit_contact_name}" />
     <label>Date</label>
-    <input type="date" name="bday_date" />
+    <input type="date" name="bday_date" value="${flash.edit_contact_bday_date}" />
     <label>How many hours before birth day, you want to be reminded?</label>
-    <input type="number" name="reminder_before_bday" />
+    <input type="number" name="reminder_before_bday" value="${flash.edit_contact_email_before_bday_hours}" />
+    <input type="hidden" name="contact_id" value="${flash.edit_contact_id}" />
     <input type="submit" name="Submit" id="addcontact"/>
 </form>

@@ -6,8 +6,13 @@
 GET     /                                       Application.index
 
 # Contact 
-POST    /users/addContact                           Users.addContact
-GET    /users/deletecontact/{contact_id}            Users.deleteContact
+GET    /contacts/contactform                           Contacts.contactForm
+POST    /contacts/addcontact                          Contacts.addContact
+
+GET    /contacts/editcontactform/{contact_id}            Contacts.editContactForm
+POST    /contacts/updatecontact/                       Contacts.updateContact
+
+GET    /contacts/deletecontact/{contact_id}            Contacts.deleteContact
 
 # Login pages
 GET     /login                               Application.login
