@@ -54,16 +54,20 @@ public class Contact extends Model{
     
     public static Long getNextTask() {
         Query query = JPA.em().createQuery("select id from Contact order by bday_date, email_before_bday_hours");      
-        List<Long> contacts = query.getResultList();
-        //Contact contacts = Contact.find("select * from contact where 1");
-         for (Long contact : contacts) {
-                System.out.println("date="+contact);
-            }
+        List<Long> contacts = query.getResultList();        
         return contacts.get(0);
     }
     
-    public static int getNextScheduleHour() {
-        return 1;
+    public static Timestamp getNextScheduleHour(Contact contact) throws ParseException {
+        System.out.println("contact id"+contact.id);
+        System.out.println("contact name"+contact.name);
+        System.out.println("scheduling job on");
+        System.out.println("contact name"+contact.getBday_date());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        java.util.Date parsedDate = dateFormat.parse(contact.getBday_date());
+        Timestamp timestamp = new java.sql.Timestamp(parsedDate.getTime());
+        Timestamp nextTask = new Timestamp(timestamp.getTime() - contact.email_before_bday_hours * (60 * 60 * 1000));
+        return nextTask;
     }
     
     public String getName() {

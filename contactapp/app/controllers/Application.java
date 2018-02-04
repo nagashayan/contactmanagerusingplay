@@ -1,10 +1,6 @@
 package controllers;
 
-import play.*;
 import play.mvc.*;
-
-import java.util.*;
-
 import models.*;
 import play.data.validation.Required;
 
@@ -12,9 +8,7 @@ public class Application extends Controller {
 
     @Before(unless = {"logout"})
     static void checkAuthentification() {
-        if (!session.contains("loggedinuser")) {
-            System.out.println("loggedin1");
-        } else {
+        if (session.contains("loggedinuser")) {
             Users.home();
         }
     }
@@ -29,7 +23,6 @@ public class Application extends Controller {
 
     public static void validate(String email, String password) {
         User user = User.getUser(email);
-        // System.out.println(user.email+user.password);
         if (user == null || !user.password.equals(password)) {
 
             flash.error("Please check your email or password and try again");
