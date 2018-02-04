@@ -28,6 +28,7 @@ public class Application extends Controller {
 
     public static void validate(String email, String password) {
         User user = User.getUser(email);
+        System.out.println(user.email+user.password);
         if (user == null || !user.password.equals(password)) {
 
             flash.error("Please check your email or password and try again");
@@ -74,7 +75,7 @@ public class Application extends Controller {
 
     }
 
-    private static boolean checkUserStatus() {
+    public static boolean checkUserStatus() {
         if (session.contains("loggedinuser")) {
             System.out.println("loggedin1");
 

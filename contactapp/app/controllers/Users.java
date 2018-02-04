@@ -21,8 +21,6 @@ import play.mvc.Scope.Session;
 public class Users extends Controller {
 
     public static void home() {
-        String name = flash.get("name");
-
         try {
             if (session.contains("loggedinuser")) {
                 long id = Long.parseLong(session.get("loggedinuser"));
@@ -30,11 +28,8 @@ public class Users extends Controller {
                 User user = User.findById(id);
                 if (user != null) {
                     System.out.println(user.id);
-                    name = user.email;
+                    String name = user.email;
                     List<Contact> contacts = user.getContacts();
-                    for (Contact contact : contacts) {
-                        System.out.println(contact.name);
-                    }
                     render(name, contacts);
                 }
 
@@ -54,16 +49,27 @@ public class Users extends Controller {
     }
 
     public static void addContact(@Required String name, @Required Date bday_date, @Required String reminder_before_bday) throws ParseException {
-        //Application.checkUserStatus();
-        long id = Long.parseLong(session.get("loggedinuser"));
+        if(Application.checkUserStatus()){
+            long id = Long.parseLong(session.get("loggedinuser"));
 
-        User user = User.findById(id);
-        if (user != null) {
+            User user = User.findById(id);
+            if (user != null) {
 
-            // add some dummy contacts
-            user.addContact(name, bday_date, Integer.parseInt(reminder_before_bday));
-            user.save();
+                // add some dummy contacts
+                user.addContact(name, bday_date, Integer.parseInt(reminder_before_bday));
+            }
         }
+        home();
+        
+    }
+    
+    public static void deleteContact(@Required String contact_id) throws ParseException {
+        if(Application.checkUserStatus()){
+            long id = Long.parseLong(session.get("loggedinuser"));
+            Contact.remove(id,Long.parseLong( contact_id));
+            
+        }
+        
         home();
     }
 

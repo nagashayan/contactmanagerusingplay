@@ -65,8 +65,13 @@ public class User extends Model {
     public void addContact(String name, Date bday, int email_before_bday_hours) throws ParseException {
         Contact contact = new Contact(name,bday,email_before_bday_hours);
         this.getContacts().add(contact);
+        this.save();
         
-        
+    }
+    
+    public void removeContact(Contact contact) throws ParseException {
+        this.getContacts().remove(contact);
+        this.save();
     }
 
     public List<Contact> getContacts() {

@@ -64,5 +64,11 @@ public class Contact extends Model{
     public void setEmail_before_bday_hours(int email_before_bday_hours) {
         this.email_before_bday_hours = email_before_bday_hours;
     }
+    
+    public static void remove(long user_id,long contact_id) throws ParseException{
+        Contact contact = Contact.findById(contact_id);
+        User user = User.findById(user_id);
+        user.removeContact(contact);
+    }
 
 }

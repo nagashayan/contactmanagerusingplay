@@ -5,8 +5,9 @@
 # Home page
 GET     /                                       Application.index
 
-# Add contact 
+# Contact 
 POST    /users/addContact                           Users.addContact
+GET    /users/deletecontact/{contact_id}            Users.deleteContact
 
 # Login pages
 GET     /login                               Application.login
