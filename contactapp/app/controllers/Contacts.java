@@ -5,6 +5,7 @@
  */
 package controllers;
 
+import AutoJobs.CheckNextTask;
 import static controllers.Users.home;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -43,6 +44,7 @@ public class Contacts extends Controller{
                 System.out.println("adding contact" + name + reminder_before_bday + bday_date);
                 // add some dummy contacts
                 user.addContact(name, bday_date, Integer.parseInt(reminder_before_bday));
+                new CheckNextTask().now();
             }
         Users.home();
 
@@ -81,6 +83,7 @@ public class Contacts extends Controller{
             if (user != null) {
                 try{
                     Contact.updateContact(contact_id, contact_name, bday_date, reminder_before_bday);
+                    new CheckNextTask().now();
                 }
                 catch(Exception e){
                    System.out.println("caught excpetion" + e.getStackTrace().toString());
@@ -96,6 +99,7 @@ public class Contacts extends Controller{
         
             long id = Long.parseLong(session.get("loggedinuser"));
             Contact.remove(id, Long.parseLong(contact_id));
+            new CheckNextTask().now();
 
         Users.home();
     }

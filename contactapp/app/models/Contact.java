@@ -9,8 +9,12 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.Query;
 import play.data.validation.Required;
+import play.db.jpa.JPA;
 import play.db.jpa.Model;
 /**
  *
@@ -23,7 +27,7 @@ public class Contact extends Model{
     public String name;
     
     @Required
-    public Date bday_date;
+    public Timestamp bday_date;
     
     @Required
     public int email_before_bday_hours;
@@ -46,6 +50,20 @@ public class Contact extends Model{
             edit_contact.save();
             
         }
+    }
+    
+    public static Long getNextTask() {
+        Query query = JPA.em().createQuery("select id from Contact order by bday_date, email_before_bday_hours");      
+        List<Long> contacts = query.getResultList();
+        //Contact contacts = Contact.find("select * from contact where 1");
+         for (Long contact : contacts) {
+                System.out.println("date="+contact);
+            }
+        return contacts.get(0);
+    }
+    
+    public static int getNextScheduleHour() {
+        return 1;
     }
     
     public String getName() {
@@ -73,6 +91,7 @@ public class Contact extends Model{
     }
 
     public String getBday_date() {
+        System.out.println(this.bday_date);
         DateFormat target_bday_date = new SimpleDateFormat("yyyy-MM-dd");
         String format_bday_date = target_bday_date.format(this.bday_date); 
         return format_bday_date;
@@ -81,7 +100,9 @@ public class Contact extends Model{
     public void setBday_date(String bday_date) throws ParseException {
         DateFormat dateFormat  = new SimpleDateFormat("yyyy-MM-dd");
         java.util.Date format_bday_date = dateFormat.parse(bday_date);
-        this.bday_date = new java.sql.Date(format_bday_date.getTime());
+        this.bday_date = new java.sql.Timestamp(format_bday_date.getTime());
+        //System.out.println(this.bday_date);
+
         
     }
 
