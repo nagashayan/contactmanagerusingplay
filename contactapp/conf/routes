@@ -7,6 +7,10 @@ GET     /                                       Application.index
 
 # Login pages
 GET     /login                               Application.login
+POST    /validate                           Application.validate
+GET     /home                                Application.home
+GET     /logout                              Application.logout
+
 # Registration pages
 GET     /register                               Application.register
 POST     /register                               Application.registerUser
