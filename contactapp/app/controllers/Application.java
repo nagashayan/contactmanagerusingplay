@@ -10,11 +10,8 @@ import models.*;
 public class Application extends Controller {
 
     public static void index() {
-        String error = "";
-        if(!error.equals("")){
-            error= "User or Password not found";
-        }
-        render(error);
+        
+        render();
     }
     
     public static void home() {
@@ -30,7 +27,7 @@ public class Application extends Controller {
         if(email.equals("naga") && password.equals("naga")){
             home();
         }
-        String error = "loginerror";
+        flash.error("Please check your email or password and try again");
         index();
     }
     
