@@ -2,16 +2,26 @@
 #{set title:'Home' /}
 
 Hello ${name}! welcome to play
-<a id="logout" href="@{Application.logout}">Logout</a>
-<a id="logout" href="@{Users.home}">View all Contacts</a>
+<a id="logout" href="@{Users.home}">View all Contacts</a><a class="pull-right" id="logout" href="@{Application.logout}">Logout</a>
+<h3>Update Contact ${flash.edit_contact_id}</h3>
 
-<form method= "post" action="@{Contacts.updateContact}">
-    <label>Name</label>
-    <input type="text" name="contact_name" value="${flash.edit_contact_name}" />
-    <label>Date</label>
-    <input type="date" name="bday_date" value="${flash.edit_contact_bday_date}" />
-    <label>How many hours before birth day, you want to be reminded?</label>
-    <input type="number" name="reminder_before_bday" value="${flash.edit_contact_email_before_bday_hours}" />
-    <input type="hidden" name="contact_id" value="${flash.edit_contact_id}" />
-    <input type="submit" name="Submit" id="addcontact"/>
+
+<form class="form" method= "post"  action="@{Contacts.updateContact}">
+     <div class="form-group">
+          <label for="name">Contact Name:</label>
+          <input type="text" name="name" class="form-control" value="${flash.edit_contact_name}" required/>
+     </div>
+   
+     <div class="form-group">
+           <label for="birthdate">Birthday Date:</label>
+          <input type="date" name="bday_date"  class="form-control" value="${flash.edit_contact_bday_date}" required/>
+     </div>
+    
+    <div class="form-group">
+           <label for="hoursbeforebday">How many hours before birth day, you want to be reminded?:</label>
+          <input type="number" name="reminder_before_bday"  class="form-control" value="${flash.edit_contact_email_before_bday_hours}" required/>
+     </div>
+        <input type="hidden" name="contact_id" value="${flash.edit_contact_id}" />
+
+    <button type="submit" class="btn btn-default" id="addcontact">Update Contact</button>
 </form>
