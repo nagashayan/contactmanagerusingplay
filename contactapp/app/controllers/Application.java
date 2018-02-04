@@ -36,6 +36,7 @@ public class Application extends Controller {
         } else {
             flash("name", user.email);
             session.put("loggedinuser", user.id);
+            session.put("loggedinusername", user.email);
             Users.home();
         }
     }
