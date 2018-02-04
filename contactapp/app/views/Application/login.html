@@ -2,7 +2,9 @@
 #{set title:'Registration Page' /}
 
 <form method= "post" action="@{Application.validate}">
-    <input type="text" name="email" />
+    <label>Email</label>
+    <input type="email" name="email" />
+    <label>Password</label>
     <input type="text" name="password" />
-    <input type="submit" name="Submit" />
+    <input type="submit" name="Submit" id="login"/>
 </form>

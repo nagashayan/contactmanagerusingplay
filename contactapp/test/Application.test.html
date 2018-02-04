@@ -4,4 +4,19 @@
     // Open the home page, and check that no error occured
     open('/')
     assertNotTitle('Application error')
+    assertTextPresent('Please login')
+    
+    clickAndWait('link=Please login')
+    assertTextPresent('Email')
+    assertTextPresent('Password')
+    type('email', 'naga@gmail.com')
+    type('password', 'naga')
+    clickAndWait('login')
+    
+    assertTextPresent('Hello naga@gmail.com!')
+
+
+
+
+    
 #{/selenium}

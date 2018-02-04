@@ -15,7 +15,7 @@ public class Application extends Controller {
     }
     
     public static void home() {
-        String name = "naga";
+        String name = flash.get("name");
         render(name);
     }
     
@@ -24,7 +24,8 @@ public class Application extends Controller {
     }
     
     public static void validate(String email, String password) {
-        if(email.equals("naga") && password.equals("naga")){
+        if(email.equals("naga@gmail.com") && password.equals("naga")){
+            flash("name",email);
             home();
         }
         flash.error("Please check your email or password and try again");
