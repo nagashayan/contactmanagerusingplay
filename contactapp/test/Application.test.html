@@ -14,7 +14,8 @@
     clickAndWait('login')
     
     assertTextPresent('Hello naga@gmail.com!')
-
+    clickAndWait('link=Logout')
+    assertTextPresent('Please login')
 
 
 
