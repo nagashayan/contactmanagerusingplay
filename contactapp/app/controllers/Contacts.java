@@ -13,6 +13,7 @@ import java.util.List;
 import models.Contact;
 import models.User;
 import play.data.validation.Required;
+import play.mvc.Before;
 import play.mvc.Controller;
 
 /**
@@ -21,12 +22,20 @@ import play.mvc.Controller;
  */
 public class Contacts extends Controller{
     
+    @Before
+    static void checkAuthentification() {
+        if (!session.contains("loggedinuser")) {
+            System.out.println("loggedin1");
+            Application.login();
+        }
+    }
+    
     public static void contactForm(){
         render("@addContactForm");
     }
     
     public static void addContact(@Required String name, @Required String bday_date, @Required String reminder_before_bday) throws ParseException {
-        if (Application.checkUserStatus()) {
+        
             long id = Long.parseLong(session.get("loggedinuser"));
 
             User user = User.findById(id);
@@ -35,13 +44,12 @@ public class Contacts extends Controller{
                 // add some dummy contacts
                 user.addContact(name, bday_date, Integer.parseInt(reminder_before_bday));
             }
-        }
         Users.home();
 
     }
     
     public static void editContactForm(@Required String contact_id) throws ParseException {
-        if (Application.checkUserStatus()) {
+        
             long id = Long.parseLong(session.get("loggedinuser"));
             String name = session.get("loggedinusername");
 
@@ -62,12 +70,11 @@ public class Contacts extends Controller{
                 render("@editContactForm", name);
             }
 
-        }
         Users.home();
     }
     
     public static void updateContact(@Required String contact_id, @Required String contact_name, @Required String bday_date, @Required String reminder_before_bday) throws ParseException {
-        if (Application.checkUserStatus()) {
+        
             long id = Long.parseLong(session.get("loggedinuser"));
             String name = session.get("loggedinusername");
             User user = User.findById(id);
@@ -82,16 +89,13 @@ public class Contacts extends Controller{
                 
             }
 
-        }
         Users.home();
     }
     
      public static void deleteContact(@Required String contact_id) throws ParseException {
-        if (Application.checkUserStatus()) {
+        
             long id = Long.parseLong(session.get("loggedinuser"));
             Contact.remove(id, Long.parseLong(contact_id));
-
-        }
 
         Users.home();
     }

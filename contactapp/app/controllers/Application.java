@@ -10,25 +10,26 @@ import play.data.validation.Required;
 
 public class Application extends Controller {
 
-    public static void index() {
-        if (!checkUserStatus()) {
-            render();
+    @Before(unless = {"logout"})
+    static void checkAuthentification() {
+        if (!session.contains("loggedinuser")) {
+            System.out.println("loggedin1");
         } else {
             Users.home();
         }
     }
 
+    public static void index() {
+        render();
+    }
+
     public static void login() {
-        if (!checkUserStatus()) {
-            render();
-        } else {
-            Users.home();
-        }
+        render();
     }
 
     public static void validate(String email, String password) {
         User user = User.getUser(email);
-        System.out.println(user.email+user.password);
+        // System.out.println(user.email+user.password);
         if (user == null || !user.password.equals(password)) {
 
             flash.error("Please check your email or password and try again");
@@ -47,11 +48,7 @@ public class Application extends Controller {
     }
 
     public static void register() {
-        if (!checkUserStatus()) {
-            render();
-        } else {
-            Users.home();
-        }
+        render();
     }
 
     public static void registerUser(@Required String email, @Required String password) {
@@ -74,17 +71,6 @@ public class Application extends Controller {
             render("@register");
         }
 
-    }
-
-    public static boolean checkUserStatus() {
-        if (session.contains("loggedinuser")) {
-            System.out.println("loggedin1");
-
-            return true;
-        } else {
-            return false;
-
-        }
     }
 
 }
